@@ -1,0 +1,19 @@
+Problems ran into during development
+
+(1). Role exists errors: Login as the IAM User to AWS Management Console and delete those roles created
+
+Error: Error creating IAM Role terraform-eks-ec-cluster: EntityAlreadyExists: Role with name terraform-eks-ec-cluster already exists.
+	status code: 409, request id: 13746e5c-de2e-11e9-b025-0b42a5fb5203
+
+  on eks-cluster.tf line 8, in resource "aws_iam_role" "ec-cluster":
+   8: resource "aws_iam_role" "ec-cluster" {
+
+Error: Error creating IAM Role terraform-eks-ec-node: EntityAlreadyExists: Role with name terraform-eks-ec-node already exists.
+	status code: 409, request id: 1375f50a-de2e-11e9-8ba9-09aa481863b8
+
+  on eks-worker-nodes.tf line 10, in resource "aws_iam_role" "ec-node":
+  10: resource "aws_iam_role" "ec-node" {
+  
+  (2). Delete *.tfstate files in the terraform code folder
+       Delete .terraform directory
+       Delete .kube directory
