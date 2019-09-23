@@ -17,3 +17,13 @@ Error: Error creating IAM Role terraform-eks-ec-node: EntityAlreadyExists: Role 
   (2). Delete *.tfstate files in the terraform code folder
        Delete .terraform directory
        Delete .kube directory
+
+(3) Another error: Not sure where to find that profile, I changed the name if that tf file and problem solved:
+
+Error: Error creating IAM instance profile terraform-eks-ec: EntityAlreadyExists: Instance Profile terraform-eks-ec already exists.
+	status code: 409, request id: 0aa7e066-de43-11e9-b0da-697c596ef9cc
+
+  on ec-worker-nodes.tf line 44, in resource "aws_iam_instance_profile" "ec-node":
+  44: resource "aws_iam_instance_profile" "ec-node" {
+
+I was able to create the cluster.
