@@ -27,3 +27,7 @@ Error: Error creating IAM instance profile terraform-eks-ec: EntityAlreadyExists
   44: resource "aws_iam_instance_profile" "ec-node" {
 
 I was able to create the cluster.
+
+(4) When creating a new cluster, you have to reconfigure the kubeconfig file to access the cluster from terminal by kubectl command.
+Use these two commands to get necessary info:
+https://eksworkshop.com/cloudformation/kubeconfig.html, replacing with your cluster name as flag: --name
