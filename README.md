@@ -1,17 +1,20 @@
 # squarekube
 
-Stress-testing an E-Commerce architecture based on Kubernetes+istio for prime-time workloads
+Performance and resilience testing of distributed applications deployed as micro services on a Kubernetes cluster with service mesh
 
 Business Case: 
 
-At 2018 Prime time sales - 3 minutes after opening, the famous e-commerce website crashed. The e-commerce site was not able to handle the traffic surge. Cascading failures experienced in the next few hours. On the other hand, other e-commerce giants had gained successful expereince in their shopping festival campaigns in the past several years without major glitches.
+At 2018 Prime time sales - 3 minutes after opening, the famous e-commerce website crashed. The e-commerce site was not able to handle the traffic surge. Cascading failures experienced in the next few hours. 
+
+On the other hand, other e-commerce giants had gained successful experience in their shopping festival campaigns in the past several years without major glitches.
 
 Motivation: 
 
-This project proposes hybrid stress-testing strategies for preparing the next Prime time sales. It implements an e-commerce architecture based on Kubernetes and service mesh. Stress-testing will be applied to the e-commerce microservices applications to simulate real workloads.
+A cascading failure of a distributed application could result in large financial losses. An Amazon study shows that a one-second lagging of loading time of their website could amount to $1.6B losses annually. Walmart has published similar stats that a one-second faster responding time of their website increases the conversion rate by 2 percent.  
+
 
 Engineering Challenges:
 
-- limited compute resources to simulate real workloads
-- Simulated stree testing to reveal most bottlenecks
-- AI-powered strategies in case of hardware resources exhaustion
+- How to simulate distributed workloads
+- When traffic surges 20 times, how to auto scale
+- When fails happen, how to self-heal
