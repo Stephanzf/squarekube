@@ -1,0 +1,13 @@
+#Deploy the Hipster Shop e-Commerce site to our AWS cluster:
+# Label default namespace to inject Envoy sidecar
+kubectl label namespace default istio-injection=enabled
+
+# Check istio sidecar injector label
+kubectl get namespace -L istio-injection
+
+# Deploy Google hipster shop manifests
+kubectl create -f https://raw.githubusercontent.com/berndonline/aws-eks-terraform/master/example/istio-hipster-shop.yml
+kubectl create -f https://raw.githubusercontent.com/berndonline/aws-eks-terraform/master/example/istio-manifest.yml
+
+# Wait a few minutes before deploying the load generator
+kubectl create -f https://raw.githubusercontent.com/berndonline/aws-eks-terraform/master/example/istio-loadgenerator.yml

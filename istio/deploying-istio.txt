@@ -1,0 +1,64 @@
+#Run istio service mesh on Amazon a multi-master multi-worker-nodes HA cluster:
+
+#Create a namespace for istio from a terminal:
+kubectl create namespace istio-system
+
+
+(2) Set a secret for kigali from the terminal:
+USERNAME=$(echo -n 'admin' | base64)
+PASSPHRASE=$(echo -n 'supersecretpassword!!' | base64)
+NAMESPACE=istio-system
+
+cat <<EOF | kubectl apply -n istio-system -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kiali
+  namespace: $NAMESPACE
+  labels:
+    app: kiali
+type: Opaque
+data:
+  username: $USERNAME
+  passphrase: $PASSPHRASE
+EOF
+
+(3) Create an S3 bucket:
+aws s3api create-bucket \
+    --bucket simulationicscomstatestore \
+    --create-bucket-configuration LocationConstraint=us-west-2
+
+And put it in versioning:
+aws s3api put-bucket-versioning --bucket simulationicscomstatestore  --versioning-configuration Status=Enabled
+
+(4) Deploy istio services:
+curl -L https://git.io/getLatestIstio | sh -
+cd istio-1.3.0
+
+#Change to istio directory and Configure helm:
+
+kubectl create -f install/kubernetes/helm/helm-service-account.yaml
+helm init --service-account tiller
+
+#init istio:
+helm install \
+--wait \
+--name istio-init \
+--namespace istio-system \
+install/kubernetes/helm/istio-init
+
+#use a demo setting:
+helm install \
+--wait \
+--name istio \
+--namespace istio-system \
+install/kubernetes/helm/istio \
+--values install/kubernetes/helm/istio/values-istio-demo.yaml
+
+
+
+
+
+
+
+

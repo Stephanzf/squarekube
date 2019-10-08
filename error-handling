@@ -1,0 +1,33 @@
+Problems ran into during development
+
+(1). Role exists errors: Login as the IAM User to AWS Management Console and delete those roles created
+
+Error: Error creating IAM Role terraform-eks-ec-cluster: EntityAlreadyExists: Role with name terraform-eks-ec-cluster already exists.
+	status code: 409, request id: 13746e5c-de2e-11e9-b025-0b42a5fb5203
+
+  on eks-cluster.tf line 8, in resource "aws_iam_role" "ec-cluster":
+   8: resource "aws_iam_role" "ec-cluster" {
+
+Error: Error creating IAM Role terraform-eks-ec-node: EntityAlreadyExists: Role with name terraform-eks-ec-node already exists.
+	status code: 409, request id: 1375f50a-de2e-11e9-8ba9-09aa481863b8
+
+  on eks-worker-nodes.tf line 10, in resource "aws_iam_role" "ec-node":
+  10: resource "aws_iam_role" "ec-node" {
+  
+  (2). Delete *.tfstate files in the terraform code folder
+       Delete .terraform directory
+       Delete .kube directory
+
+(3) Another error: Not sure where to find that profile, I changed the name if that tf file and problem solved:
+
+Error: Error creating IAM instance profile terraform-eks-ec: EntityAlreadyExists: Instance Profile terraform-eks-ec already exists.
+	status code: 409, request id: 0aa7e066-de43-11e9-b0da-697c596ef9cc
+
+  on ec-worker-nodes.tf line 44, in resource "aws_iam_instance_profile" "ec-node":
+  44: resource "aws_iam_instance_profile" "ec-node" {
+
+I was able to create the cluster.
+
+(4) When creating a new cluster, you have to reconfigure the kubeconfig file to access the cluster from terminal by kubectl command.
+Use these two commands to get necessary info:
+https://eksworkshop.com/cloudformation/kubeconfig.html, replacing with your cluster name as flag: --name
