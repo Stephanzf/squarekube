@@ -16,5 +16,5 @@ A cascading failure of a distributed application could result in large financial
 Engineering Challenges:
 
 - How to simulate distributed workloads
-- When traffic surges 20 times, how to auto scale
-- When fails happen, how to self-heal
+- When traffic surges 20 times, is the system still stable and functional
+- When a crash happens, can it self-heal and restore services quickly
